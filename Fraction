@@ -388,23 +388,27 @@
 				den = -den;
 			}
 			if (::abs(num) > den){
-				for (int n = den; n > 0; n--)
-					if (!(num % n) && !(den % n)){
-						num /= n;
-						den /= n;
-						break;
-					}
+				int n = den, m = abs(num);
+				while (n){
+					int x = m %= n;
+					m = n;
+					n = x;
+				}
+				den /= m;
+				num /= m;
 			}
 			else if (::abs(num) < den){
-				for (int n = ::abs(num); n > 0; n--)
-					if (!(num % n) && !(den % n)){
-						num /= n;
-						den /= n;
-						break;
-					}
+				int n = abs(num), m = den;
+				while (n){
+					int x = m %= n;
+					m = n;
+					n = x;
+				}
+				den /= m;
+				num /= m;
 			}
 			else{
-				num /= num;
+				num /= abs(num);
 				den /= den;
 			}
 		}
